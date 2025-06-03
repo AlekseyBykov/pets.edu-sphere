@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  profiles-service:
+    image: profiles-service
+    container_name: profiles-service
+    ports:
+      - "8081:8081"
+    networks:
+      - edusphere-net
+  
+  courses-service:
+    image: courses-service
+    container_name: courses-service
+    ports:
+      - "8082:8082"
+    networks:
+      - edusphere-net
+
+networks:
+  edusphere-net:
+    driver: bridge

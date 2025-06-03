@@ -70,6 +70,15 @@
 
     <build>
         <plugins>
+            <!-- Spring Boot Plugin -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>dev.abykov.pets.edusphere.courses.CoursesApplication</mainClass>
+                </configuration>
+            </plugin>
+
             <!-- Docker build via Jib -->
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
@@ -80,7 +89,7 @@
                         <image>eclipse-temurin:21-jdk</image>
                     </from>
                     <to>
-                        <image>courses-service</image>
+                        <image>${project.artifactId}</image>
                     </to>
                     <container>
                         <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
