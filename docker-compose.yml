@@ -16,6 +16,13 @@ services:
       - "8082:8082"
     networks:
       - edusphere-net
+  
+  config-server:
+    image: config-server
+    ports:
+      - "8888:8888"
+    networks:
+      - edusphere-net
 
 networks:
   edusphere-net:
