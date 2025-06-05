@@ -52,7 +52,7 @@ public class ProfilesController {
     @Operation(summary = "Fetch Profile by Phone")
     @GetMapping("/fetch")
     public ResponseEntity<ProfileDto> fetchProfile(
-            @RequestParam
+            @RequestParam("phone")
             @Pattern(regexp = "(^$|[0-9]{10})", message = "Phone number must be 10 digits") String phone
     ) {
         ProfileDto dto = profilesService.fetchProfile(phone);
@@ -66,17 +66,21 @@ public class ProfilesController {
         return ResponseEntity.status(updated ? HttpStatus.OK : HttpStatus.EXPECTATION_FAILED)
                 .body(new ResponseDto(
                         updated ? ProfilesConstants.STATUS_200 : ProfilesConstants.STATUS_417,
-                        updated ? ProfilesConstants.MESSAGE_200 : ProfilesConstants.MESSAGE_417_UPDATE));
+                        updated ? ProfilesConstants.MESSAGE_200 : ProfilesConstants.MESSAGE_417_UPDATE
+                ));
     }
 
     @Operation(summary = "Delete Profile")
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseDto> deleteProfile(@RequestParam
-    @Pattern(regexp = "(^$|[0-9]{10})", message = "Phone number must be 10 digits") String phone) {
+    public ResponseEntity<ResponseDto> deleteProfile(
+            @RequestParam("phone")
+            @Pattern(regexp = "(^$|[0-9]{10})", message = "Phone number must be 10 digits") String phone
+    ) {
         boolean deleted = profilesService.deleteProfile(phone);
         return ResponseEntity.status(deleted ? HttpStatus.OK : HttpStatus.EXPECTATION_FAILED)
                 .body(new ResponseDto(
                         deleted ? ProfilesConstants.STATUS_200 : ProfilesConstants.STATUS_417,
-                        deleted ? ProfilesConstants.MESSAGE_200 : ProfilesConstants.MESSAGE_417_DELETE));
+                        deleted ? ProfilesConstants.MESSAGE_200 : ProfilesConstants.MESSAGE_417_DELETE
+                ));
     }
 }
