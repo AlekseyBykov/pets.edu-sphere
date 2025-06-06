@@ -56,7 +56,9 @@ public class ProfilesController {
             @Pattern(regexp = "(^$|[0-9]{10})", message = "Phone number must be 10 digits") String phone
     ) {
         ProfileDto dto = profilesService.fetchProfile(phone);
-        return ResponseEntity.ok(dto);
+        return dto != null
+                ? ResponseEntity.ok(dto)
+                : ResponseEntity.notFound().build();
     }
 
     @Operation(summary = "Update Profile")
