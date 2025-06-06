@@ -44,7 +44,7 @@ services:
       retries: 10
     volumes:
       - pgdata:/var/lib/postgresql/data
-      - ./config/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./infra/config/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - edusphere-net
       

@@ -26,3 +26,7 @@ docker-compose.override.yml
 # H2 DB
 *.mv.db
 *.trace.db
+
+# JaCoCo reports
+/infra/jacoco-report/*
+!/infra/jacoco-report/.gitkeep
