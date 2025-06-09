@@ -1,10 +1,6 @@
 spring:
   jpa:
     open-in-view: false
-  data:
-    jpa:
-      repositories:
-        enabled: false
   cloud:
     config:
       enabled: false
