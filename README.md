@@ -1,56 +1,62 @@
 # EduSphere
 
-**EduSphere** is a microservice-based system built with Spring Boot.  
-This project is under active development.
+**EduSphere** is a full-featured microservice-based educational platform built with Spring Boot. It demonstrates real-world architecture with:
+
+- Inter-service communication (REST)
+- Resilience patterns (like circuit breakers and retries)
+- API gateway routing
+- Docker-based containerization
+- Comprehensive unit, integration, and repository testing
+
+## Status
+This project **is under active development**. Structure and modules may change during development.
 
 ## Technologies
 
 - Java 21
 - Spring Boot 3
 - Spring Data JPA
-- H2 Database (for dev/testing)
-- Maven + Jib (Docker image builder)
-- Docker Compose
-- Swagger / OpenAPI for documentation
-
+- Spring Cloud Gateway (planned)
+- H2 Database (for local testing)
+- PostgreSQL (planned for production)
+- Maven
+- Docker & Docker Compose
+- Swagger / OpenAPI 3
+ 
 ## Services
 
 ### Profiles Service
 
-Provides CRUD APIs for managing user profiles.
+Manages user profile data.
 
-Available endpoints:
+**Endpoints:**
 
 - `POST /api/profiles/create`
 - `PUT /api/profiles/update`
 - `GET /api/profiles/fetch`
 - `DELETE /api/profiles/delete`
 
-Swagger UI:  
-[http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+🔗 Swagger UI: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
 ### Courses Service
 
-Provides APIs for managing courses, modules, and lessons.
+Handles courses, modules, and lessons.
 
-Available endpoints:
+**Endpoints:**
 
-Courses:
-
+#### Courses
 - `POST /api/courses/create`
 - `PUT /api/courses/update`
 - `GET /api/courses/fetch`
 - `DELETE /api/courses/delete`
 
-Modules:
-
+#### Modules
 - `POST /api/modules/create`
 - `PUT /api/modules/update`
 - `GET /api/modules/fetch`
 - `DELETE /api/modules/delete`
 
-Lessons:
-
+#### Lessons
 - `POST /api/lessons/create`
 - `PUT /api/lessons/update`
 - `GET /api/lessons/fetch`
@@ -59,32 +65,42 @@ Lessons:
 Swagger UI:  
 [http://localhost:8081/swagger-ui/index.html](http://localhost:8081/swagger-ui/index.html)
 
-## Running locally
+## Scripts
+### `build-and-run.sh`
 
-To build Docker images and run all services:
+Builds Docker images for all microservices and starts the system using Docker Compose.
 
 ```bash
 ./build-and-run.sh
 ```
+Make sure Docker is running before executing this script.
 
-This script will:
+### `stop-and-clean.sh`
 
-Build Docker images using Jib for each service.
-
-Start all services with Docker Compose.
-
-Ensure Docker is running before executing the script.
-
-## Docker
-
-To build the Docker image:
+Stops all running containers related to the project and removes their volumes. This is useful to reset the environment 
+during development or troubleshooting.
 
 ```bash
-mvn clean compile jib:dockerBuild
+./stop-and-clean.sh
 ```
 
-## Status
-This project is under active development. Structure and modules may change during development.
+### `stop-and-purge.sh`
+
+Stops all running services, removes containers, images, and volumes used by the system.
+
+```bash
+./stop-and-clean.sh
+```
+Use this to fully clean and reset the Docker environment, including local images and data volumes.
+
+## Test Coverage
+
+- JUnit-based controller tests
+- Repository tests using H2 and `@DataJpaTest`
+- MockMvc tests for REST APIs
+- Entity auditing tests
+
+Further test scenarios planned (e.g., end-to-end, resilience)
 
 ## License
 MIT License
