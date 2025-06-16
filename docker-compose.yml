@@ -27,6 +27,24 @@ services:
     networks:
       - edusphere-net
   
+  content-service:
+    image: content-service
+    container_name: content-service
+    depends_on:
+      config-server:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_started
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    networks:
+      - edusphere-net
+
+  
   postgres:
     image: postgres:16
     container_name: edu-sphere-postgres
@@ -60,8 +78,23 @@ services:
     networks:
       - edusphere-net
 
+  minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"   # API
+      - "9001:9001"   # Web UI
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minio123
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio-data:/data
+    networks:
+      - edusphere-net
+
 volumes:
   pgdata:
+  minio-data:
 
 networks:
   edusphere-net:

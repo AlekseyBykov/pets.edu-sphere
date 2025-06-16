@@ -14,6 +14,7 @@
         <module>profiles-service</module>
         <module>courses-service</module>
         <module>config-server</module>
+        <module>content-service</module>
     </modules>
 
     <properties>

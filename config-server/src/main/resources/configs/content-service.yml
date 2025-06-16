@@ -1,0 +1,51 @@
+server:
+  port: 8083
+  address: 0.0.0.0
+
+spring:
+  application:
+    name: content-service
+  datasource:
+    url: jdbc:postgresql://postgres:5432/content_db
+    username: edu
+    password: secret
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  web:
+    resources:
+      add-mappings: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
+
+springdoc:
+  swagger-ui:
+    url: /v3/api-docs
+    path: /swagger-ui.html
+
+info:
+  message: "Welcome to EduSphere content service!"
+  contactDetails:
+    name: "Aleksey Bykov - Dev"
+    email: "contact@abykov.dev"
+  onCallSupport:
+    - "(800) 123-4567"
+    - "(800) 890-1234"

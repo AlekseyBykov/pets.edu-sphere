@@ -16,13 +16,16 @@ This project **is under active development**. Structure and modules may change d
 - Java 21
 - Spring Boot 3
 - Spring Data JPA
+- Spring Web
 - Spring Cloud Gateway (planned)
-- H2 Database (for local testing)
-- PostgreSQL (planned for production)
+- PostgreSQL (per-service database)
+- H2 Database (for local unit testing only)
+- AWS SDK v2 (for S3-compatible storage)
+- MinIO (local S3-compatible object storage)
+- Swagger / OpenAPI 3
 - Maven
 - Docker & Docker Compose
-- Swagger / OpenAPI 3
- 
+
 ## Services
 
 ### Profiles Service
@@ -36,7 +39,7 @@ Manages user profile data.
 - `GET /api/profiles/fetch`
 - `DELETE /api/profiles/delete`
 
-🔗 Swagger UI: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+Swagger UI: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
 ### Courses Service
 
@@ -62,8 +65,18 @@ Handles courses, modules, and lessons.
 - `GET /api/lessons/fetch`
 - `DELETE /api/lessons/delete`
 
-Swagger UI:  
-[http://localhost:8081/swagger-ui/index.html](http://localhost:8081/swagger-ui/index.html)
+Swagger UI: [http://localhost:8081/swagger-ui/index.html](http://localhost:8081/swagger-ui/index.html)
+
+### Content Service
+
+Handles upload and download of educational content (images, PDFs, videos, etc). Files are stored in an S3-compatible object store (MinIO).
+
+**Endpoints:**
+
+- `POST /contents/upload` — Upload a file
+- `GET /contents/download/{key}` — Download a file by key
+
+Swagger UI: [http://localhost:8083/swagger-ui/index.html](http://localhost:8083/swagger-ui/index.html)
 
 ## Scripts
 ### `build-and-run.sh`
