@@ -112,6 +112,8 @@ Use this to fully clean and reset the Docker environment, including local images
 
 - JUnit-based controller tests
 - Repository tests using H2 and `@DataJpaTest`
+- Repository tests with Flyway-based database setup (`application-test-jpa.yml`)
+- Integration tests using `@SpringBootTest`, `TestRestTemplate`, and Flyway migrations (`application-test-mvc.yml`)
 - MockMvc tests for REST APIs
 - Entity auditing tests
 
