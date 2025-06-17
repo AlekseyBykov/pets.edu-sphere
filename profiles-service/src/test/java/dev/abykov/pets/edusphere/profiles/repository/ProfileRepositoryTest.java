@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ActiveProfiles("test-jpa")
 @Import(TestAuditConfiguration.class)
@@ -44,5 +46,15 @@ class ProfileRepositoryTest {
                 },
                 () -> fail("Expected profile to be found, but was not")
         );
+    }
+
+    @Test
+    @DisplayName("when searching by email then returns expected profile")
+    @Commit
+    void whenFindByEmail_thenReturnsProfile() {
+        Optional<Profile> maybeProfile = profileRepository.findByEmail("another@example.com");
+
+        assertTrue(maybeProfile.isPresent(), "Profile should be present");
+        assertEquals("testuser", maybeProfile.get().getUsername(), "Username should match");
     }
 }

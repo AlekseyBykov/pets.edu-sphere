@@ -11,4 +11,6 @@ import java.util.UUID;
 public interface ProfileRepository extends JpaRepository<Profile, UUID> {
 
     Optional<Profile> findByPhone(String phone);
+
+    Optional<Profile> findByEmail(String email);
 }
