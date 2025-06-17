@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/courses")
@@ -46,7 +47,7 @@ public class CourseController {
             }
     )
     @GetMapping("/{id}")
-    public ResponseEntity<CourseDto> getById(@PathVariable Long id) {
+    public ResponseEntity<CourseDto> getById(@PathVariable UUID id) {
         return ResponseEntity.ok(courseService.getById(id));
     }
 
@@ -60,14 +61,14 @@ public class CourseController {
 
     @Operation(summary = "Update course")
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseDto> update(@PathVariable Long id, @Valid @RequestBody CourseDto dto) {
+    public ResponseEntity<ResponseDto> update(@PathVariable UUID id, @Valid @RequestBody CourseDto dto) {
         courseService.update(id, dto);
         return ResponseEntity.ok(new ResponseDto(CoursesConstants.STATUS_200, CoursesConstants.MESSAGE_200));
     }
 
     @Operation(summary = "Delete course")
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseDto> delete(@PathVariable Long id) {
+    public ResponseEntity<ResponseDto> delete(@PathVariable UUID id) {
         courseService.delete(id);
         return ResponseEntity.ok(new ResponseDto(CoursesConstants.STATUS_200, CoursesConstants.MESSAGE_200));
     }

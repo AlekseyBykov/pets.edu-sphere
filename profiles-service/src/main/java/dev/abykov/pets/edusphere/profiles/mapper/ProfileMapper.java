@@ -7,7 +7,7 @@ public class ProfileMapper {
 
     public static ProfileDto toDto(Profile profile) {
         ProfileDto dto = new ProfileDto();
-        dto.setName(profile.getName());
+        dto.setName(profile.getUsername());
         dto.setEmail(profile.getEmail());
         dto.setPhone(profile.getPhone());
 
@@ -16,7 +16,7 @@ public class ProfileMapper {
 
     public static Profile toEntity(ProfileDto dto) {
         Profile profile = new Profile();
-        profile.setName(dto.getName());
+        profile.setUsername(dto.getName());
         profile.setEmail(dto.getEmail());
         profile.setPhone(dto.getPhone());
 
@@ -24,7 +24,7 @@ public class ProfileMapper {
     }
 
     public static Profile updateEntity(ProfileDto dto, Profile existing) {
-        existing.setName(dto.getName());
+        existing.setUsername(dto.getName());
         existing.setEmail(dto.getEmail());
 
         return existing;

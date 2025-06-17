@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +28,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public CourseDto getById(Long id) {
+    public CourseDto getById(UUID id) {
         Course course = courseRepository.findById(id)
                 .orElseThrow(() -> new CourseNotFoundException(
                         String.format(ErrorMessages.COURSE_NOT_FOUND, id)
@@ -42,7 +43,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public CourseDto update(Long id, CourseDto dto) {
+    public CourseDto update(UUID id, CourseDto dto) {
         Course existing = courseRepository.findById(id)
                 .orElseThrow(() -> new CourseNotFoundException(
                         String.format(ErrorMessages.COURSE_NOT_FOUND, id)
@@ -54,7 +55,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
         courseRepository.deleteById(id);
     }
 }

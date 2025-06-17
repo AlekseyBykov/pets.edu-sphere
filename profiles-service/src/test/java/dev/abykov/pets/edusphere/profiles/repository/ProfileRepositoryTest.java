@@ -28,7 +28,7 @@ class ProfileRepositoryTest {
     @DisplayName("when profile saved with phone then repository should find it by phone")
     public void whenProfileSaved_thenFindsByPhone() {
         Profile profile = new Profile();
-        profile.setName("Test User");
+        profile.setUsername("Test User");
         profile.setPhone("1234567890");
         profile.setEmail("test@example.com");
 
@@ -38,7 +38,7 @@ class ProfileRepositoryTest {
 
         maybeProfile.ifPresentOrElse(
                 found -> {
-                    assertEquals("Test User", found.getName(), "Name mismatch");
+                    assertEquals("Test User", found.getUsername(), "Name mismatch");
                     assertEquals("1234567890", found.getPhone(), "Phone mismatch");
                     assertEquals("test@example.com", found.getEmail(), "Email mismatch");
                 },

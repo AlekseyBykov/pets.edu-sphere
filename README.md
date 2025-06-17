@@ -19,6 +19,7 @@ This project **is under active development**. Structure and modules may change d
 - Spring Web
 - Spring Cloud Gateway (planned)
 - PostgreSQL (per-service database)
+- Flyway (database migrations)
 - H2 Database (for local unit testing only)
 - AWS SDK v2 (for S3-compatible storage)
 - MinIO (local S3-compatible object storage)
@@ -70,6 +71,7 @@ Swagger UI: [http://localhost:8081/swagger-ui/index.html](http://localhost:8081/
 ### Content Service
 
 Handles upload and download of educational content (images, PDFs, videos, etc). Files are stored in an S3-compatible object store (MinIO).
+Metadata is stored in PostgreSQL via the ContentItem entity.
 
 **Endpoints:**
 

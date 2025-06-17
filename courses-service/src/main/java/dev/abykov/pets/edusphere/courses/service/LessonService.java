@@ -3,18 +3,19 @@ package dev.abykov.pets.edusphere.courses.service;
 import dev.abykov.pets.edusphere.courses.dto.LessonDto;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface LessonService {
 
     List<LessonDto> getAll();
 
-    LessonDto getById(Long id);
+    LessonDto getById(UUID id);
 
     LessonDto create(LessonDto dto);
 
-    LessonDto update(Long id, LessonDto dto);
+    LessonDto update(UUID id, LessonDto dto);
 
-    void delete(Long id);
+    void delete(UUID id);
 
-    List<LessonDto> getByModuleId(Long moduleId);
+    List<LessonDto> getByModuleId(UUID moduleId);
 }

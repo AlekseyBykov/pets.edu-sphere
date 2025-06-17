@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +29,7 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public LessonDto getById(Long id) {
+    public LessonDto getById(UUID id) {
         Lesson lesson = lessonRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Lesson not found"));
         return lessonMapper.toDto(lesson);
@@ -44,7 +45,7 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public LessonDto update(Long id, LessonDto dto) {
+    public LessonDto update(UUID id, LessonDto dto) {
         Lesson existing = lessonRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Lesson not found"));
 
@@ -53,12 +54,12 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
         lessonRepository.deleteById(id);
     }
 
     @Override
-    public List<LessonDto> getByModuleId(Long moduleId) {
+    public List<LessonDto> getByModuleId(UUID moduleId) {
         return lessonRepository.findAllByModuleId(moduleId).stream()
                 .map(lessonMapper::toDto)
                 .toList();

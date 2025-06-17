@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/lessons")
@@ -32,7 +33,7 @@ public class LessonController {
 
     @Operation(summary = "Get lesson by ID")
     @GetMapping("/{id}")
-    public ResponseEntity<LessonDto> getById(@PathVariable Long id) {
+    public ResponseEntity<LessonDto> getById(@PathVariable UUID id) {
         return ResponseEntity.ok(lessonService.getById(id));
     }
 
@@ -45,21 +46,21 @@ public class LessonController {
 
     @Operation(summary = "Update lesson")
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseDto> update(@PathVariable Long id, @Valid @RequestBody LessonDto dto) {
+    public ResponseEntity<ResponseDto> update(@PathVariable UUID id, @Valid @RequestBody LessonDto dto) {
         lessonService.update(id, dto);
         return ResponseEntity.ok(new ResponseDto(CoursesConstants.STATUS_200, "Lesson updated successfully"));
     }
 
     @Operation(summary = "Delete lesson")
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseDto> delete(@PathVariable Long id) {
+    public ResponseEntity<ResponseDto> delete(@PathVariable UUID id) {
         lessonService.delete(id);
         return ResponseEntity.ok(new ResponseDto(CoursesConstants.STATUS_200, "Lesson deleted successfully"));
     }
 
     @Operation(summary = "Get all lessons by module ID")
     @GetMapping("/module/{moduleId}")
-    public ResponseEntity<List<LessonDto>> getByModuleId(@PathVariable Long moduleId) {
+    public ResponseEntity<List<LessonDto>> getByModuleId(@PathVariable UUID moduleId) {
         return ResponseEntity.ok(lessonService.getByModuleId(moduleId));
     }
 }
