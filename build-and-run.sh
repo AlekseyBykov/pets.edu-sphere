@@ -2,8 +2,10 @@
 
 set -e
 
-echo "Running tests for all modules..."
+echo "Setting Testcontainers JVM options..."
+export JAVA_TOOL_OPTIONS="-Dtestcontainers.ryuk.disabled=true -Dtestcontainers.reuse.enable=true"
 
+echo "Running tests for all modules..."
 mvn clean verify
 
 echo "Building Docker images with Jib..."

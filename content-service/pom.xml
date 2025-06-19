@@ -109,6 +109,22 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <!--
+                      Enables retention of parameter names in compiled bytecode.
+                      This allows Spring MVC (e.g. @PathVariable, @RequestParam)
+                      to bind method parameters without needing explicit names,
+                      like @PathVariable("id").
+                      Without this, you'll need to annotate parameter names explicitly.
+                    -->
+                    <parameters>true</parameters>
+                </configuration>
+            </plugin>
+
             <!-- Spring Boot Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>

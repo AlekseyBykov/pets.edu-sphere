@@ -7,6 +7,7 @@
 - API gateway routing
 - Docker-based containerization
 - Comprehensive unit, integration, and repository testing
+- Testcontainers-based integration testing with real PostgreSQL
 
 ## Status
 This project **is under active development**. Structure and modules may change during development.
@@ -21,6 +22,7 @@ This project **is under active development**. Structure and modules may change d
 - PostgreSQL (per-service database)
 - Flyway (database migrations)
 - H2 Database (for local unit testing only)
+- Testcontainers (for PostgreSQL-based integration tests)
 - AWS SDK v2 (for S3-compatible storage)
 - MinIO (local S3-compatible object storage)
 - Swagger / OpenAPI 3
@@ -113,10 +115,12 @@ Use this to fully clean and reset the Docker environment, including local images
 - JUnit-based controller tests
 - Repository tests using H2 and `@DataJpaTest`
 - Repository tests with Flyway-based database setup (`application-test-jpa.yml`)
-- Integration tests using `@SpringBootTest`, `TestRestTemplate`, and Flyway migrations (`application-test-mvc.yml`)
+- Integration tests using Testcontainers (PostgreSQL), Flyway migrations, and @SpringBootTest
 - MockMvc tests for REST APIs
 - Entity auditing tests
 
+- Testcontainers integration allows realistic PostgreSQL-backed testing scenarios with full isolation and no external dependencies.
+ 
 Further test scenarios planned (e.g., end-to-end, resilience)
 
 ## License
