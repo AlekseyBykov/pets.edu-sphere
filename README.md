@@ -31,6 +31,17 @@ This project **is under active development**. Structure and modules may change d
 
 ## Services
 
+### Discovery Server
+
+Eureka-based service registry that allows microservices to discover each other dynamically without hardcoding 
+hostnames or ports.
+
+Exposes dashboard at:
+
+- [http://localhost:8761](http://localhost:8761)
+
+All other services (like `courses-service`, `profiles-service`) register themselves with Eureka at runtime.
+
 ### Profiles Service
 
 Manages user profile data.
@@ -119,7 +130,7 @@ Use this to fully clean and reset the Docker environment, including local images
 - MockMvc tests for REST APIs
 - Entity auditing tests
 
-- Testcontainers integration allows realistic PostgreSQL-backed testing scenarios with full isolation and no external dependencies.
+Testcontainers integration allows realistic PostgreSQL-backed testing scenarios with full isolation and no external dependencies.
  
 Further test scenarios planned (e.g., end-to-end, resilience)
 

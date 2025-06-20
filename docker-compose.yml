@@ -20,6 +20,8 @@ services:
     depends_on:
       config-server:
         condition: service_healthy
+      discovery-server:
+        condition: service_healthy
       postgres:
         condition: service_healthy
     ports:
@@ -44,7 +46,6 @@ services:
     networks:
       - edusphere-net
 
-  
   postgres:
     image: postgres:16
     container_name: edu-sphere-postgres
@@ -72,6 +73,18 @@ services:
       - "8888:8888"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8888/actuator/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 10
+    networks:
+      - edusphere-net
+  
+  discovery-server:
+    image: discovery-server
+    ports:
+      - "8761:8761"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
       interval: 5s
       timeout: 2s
       retries: 10
