@@ -10,6 +10,8 @@ import dev.abykov.pets.edusphere.profiles.service.IProfilesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class IProfilesServiceImpl implements IProfilesService {
@@ -30,6 +32,14 @@ public class IProfilesServiceImpl implements IProfilesService {
     public ProfileDto fetchProfile(String phone) {
         Profile profile = profileRepository.findByPhone(phone).orElseThrow(() ->
                 new ResourceNotFoundException("Profile", "phone", phone)
+        );
+        return ProfileMapper.toDto(profile);
+    }
+
+    @Override
+    public ProfileDto fetchProfileById(UUID id) {
+        Profile profile = profileRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Profile", "id", id.toString())
         );
         return ProfileMapper.toDto(profile);
     }

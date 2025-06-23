@@ -9,5 +9,5 @@ public class CourseDto {
     private UUID id;
     private String title;
     private String description;
-    private Long teacherId;
+    private UUID teacherId;
 }

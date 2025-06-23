@@ -2,6 +2,7 @@ package dev.abykov.pets.edusphere.courses.controller;
 
 import dev.abykov.pets.edusphere.courses.constants.CoursesConstants;
 import dev.abykov.pets.edusphere.courses.dto.CourseDto;
+import dev.abykov.pets.edusphere.courses.dto.CourseWithTeacherDTO;
 import dev.abykov.pets.edusphere.courses.dto.ResponseDto;
 import dev.abykov.pets.edusphere.courses.service.CourseService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,7 +15,14 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.UUID;
@@ -49,6 +57,11 @@ public class CourseController {
     @GetMapping("/{id}")
     public ResponseEntity<CourseDto> getById(@PathVariable UUID id) {
         return ResponseEntity.ok(courseService.getById(id));
+    }
+
+    @GetMapping("/{id}/with-teacher")
+    public ResponseEntity<CourseWithTeacherDTO> getCourseWithTeacher(@PathVariable UUID id) {
+        return ResponseEntity.ok(courseService.getCourseWithTeacher(id));
     }
 
     @Operation(summary = "Create course")

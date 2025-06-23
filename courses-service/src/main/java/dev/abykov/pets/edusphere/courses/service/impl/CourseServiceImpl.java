@@ -1,7 +1,10 @@
 package dev.abykov.pets.edusphere.courses.service.impl;
 
+import dev.abykov.pets.edusphere.courses.client.ProfileDto;
+import dev.abykov.pets.edusphere.courses.client.ProfileFeignClient;
 import dev.abykov.pets.edusphere.courses.constants.ErrorMessages;
 import dev.abykov.pets.edusphere.courses.dto.CourseDto;
+import dev.abykov.pets.edusphere.courses.dto.CourseWithTeacherDTO;
 import dev.abykov.pets.edusphere.courses.entity.Course;
 import dev.abykov.pets.edusphere.courses.exception.CourseNotFoundException;
 import dev.abykov.pets.edusphere.courses.mapper.CourseMapper;
@@ -19,6 +22,7 @@ public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
     private final CourseMapper courseMapper;
+    private final ProfileFeignClient profileFeignClient;
 
     @Override
     public List<CourseDto> getAll() {
@@ -34,6 +38,18 @@ public class CourseServiceImpl implements CourseService {
                         String.format(ErrorMessages.COURSE_NOT_FOUND, id)
                 ));
         return courseMapper.toDto(course);
+    }
+
+    @Override
+    public CourseWithTeacherDTO getCourseWithTeacher(UUID courseId) {
+        Course course = courseRepository.findById(courseId).orElseThrow();
+        ProfileDto teacher = profileFeignClient.fetchProfileById(course.getTeacherId());
+
+        return new CourseWithTeacherDTO(
+                course.getId(),
+                course.getTitle(),
+                teacher
+        );
     }
 
     @Override

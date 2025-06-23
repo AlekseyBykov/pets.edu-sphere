@@ -11,6 +11,8 @@ services:
         condition: service_healthy
     ports:
       - "8081:8081"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
     networks:
       - edusphere-net
   
@@ -24,8 +26,12 @@ services:
         condition: service_healthy
       postgres:
         condition: service_healthy
+      profiles-service:
+        condition: service_healthy
     ports:
       - "8082:8082"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
     networks:
       - edusphere-net
   
@@ -76,6 +82,9 @@ services:
       interval: 5s
       timeout: 2s
       retries: 10
+    depends_on:
+      discovery-server:
+        condition: service_healthy
     networks:
       - edusphere-net
   
@@ -85,8 +94,8 @@ services:
       - "8761:8761"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
-      interval: 5s
-      timeout: 2s
+      interval: 10s
+      timeout: 5s
       retries: 10
     networks:
       - edusphere-net

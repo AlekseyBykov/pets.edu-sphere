@@ -18,7 +18,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api/profiles", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -56,6 +66,15 @@ public class ProfilesController {
             @Pattern(regexp = "(^$|[0-9]{10})", message = "Phone number must be 10 digits") String phone
     ) {
         ProfileDto dto = profilesService.fetchProfile(phone);
+        return dto != null
+                ? ResponseEntity.ok(dto)
+                : ResponseEntity.notFound().build();
+    }
+
+    @Operation(summary = "Fetch Profile by ID")
+    @GetMapping("/{id}")
+    public ResponseEntity<ProfileDto> fetchProfileById(@PathVariable UUID id) {
+        ProfileDto dto = profilesService.fetchProfileById(id);
         return dto != null
                 ? ResponseEntity.ok(dto)
                 : ResponseEntity.notFound().build();

@@ -31,7 +31,7 @@ class ProfileIntegrationTest {
     @Test
     @Order(1)
     void testCreateProfile() {
-        var request = new ProfileDto("John Doe", "john@example.com", "1234567890");
+        var request = new ProfileDto("Test User", "john@example.com", "1234567890");
 
         ResponseEntity<ResponseDto> response = restTemplate.postForEntity(
                 "/api/profiles/create",
@@ -48,6 +48,6 @@ class ProfileIntegrationTest {
     void testFindByPhone() {
         var profile = profileRepository.findByPhone("1234567890");
         assertTrue(profile.isPresent());
-        assertEquals("John Doe", profile.get().getUsername());
+        assertEquals("Test User", profile.get().getUsername());
     }
 }
