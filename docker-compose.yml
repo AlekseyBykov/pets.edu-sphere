@@ -99,6 +99,21 @@ services:
       retries: 10
     networks:
       - edusphere-net
+  
+  gateway-server:
+    image: gateway-server
+    container_name: gateway-server
+    depends_on:
+      config-server:
+        condition: service_healthy
+      discovery-server:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-server:8761/eureka/
+    networks:
+      - edusphere-net
 
   minio:
     image: minio/minio

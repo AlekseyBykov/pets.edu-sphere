@@ -31,6 +31,36 @@ This project **is under active development**. Structure and modules may change d
 
 ## Services
 
+### Gateway Server
+
+Acts as an API Gateway and edge server, routing external requests to internal microservices and handling cross-cutting 
+concerns like authentication, logging, and rate limiting.
+
+Built with Spring Cloud Gateway.
+
+Routes configured:
+
+- `/edu/courses/** → forwards to courses-service`
+- `/edu/profiles/** → forwards to profiles-service`
+
+This enables clean separation of client APIs from internal service URLs and simplifies client integration.
+
+### Config Server
+
+The Config Server provides centralized configuration management for all microservices in the edu-sphere system.
+It uses Spring Cloud Config to serve configuration properties from a Git repository.
+
+Purpose:
+
+- Centralizes and manages configuration for all environments (dev, test, prod).
+- Enables configuration updates without rebuilding Docker images.
+- Supports versioned configuration via Git.
+
+Default setup:
+
+- Runs on port `8888`
+- Registered with Eureka Discovery for service discovery
+
 ### Discovery Server
 
 Eureka-based service registry that allows microservices to discover each other dynamically without hardcoding 
@@ -117,7 +147,7 @@ during development or troubleshooting.
 Stops all running services, removes containers, images, and volumes used by the system.
 
 ```bash
-./stop-and-clean.sh
+./stop-and-purge.sh
 ```
 Use this to fully clean and reset the Docker environment, including local images and data volumes.
 
@@ -132,7 +162,5 @@ Use this to fully clean and reset the Docker environment, including local images
 
 Testcontainers integration allows realistic PostgreSQL-backed testing scenarios with full isolation and no external dependencies.
  
-Further test scenarios planned (e.g., end-to-end, resilience)
-
 ## License
 MIT License
